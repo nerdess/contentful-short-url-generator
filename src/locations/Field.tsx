@@ -107,7 +107,15 @@ const Field = () => {
 							<IconButton 
 								style={{height: 40, width: 40}}
 								variant="secondary"
-								onClick={() => shortenURL(sdk.field.getValue())}
+								onClick={() => {
+
+									if (!sdk.field.getValue() || sdk.field.getSchemaErrors().length > 0) {
+										sdk.notifier.error('Please enter a valid URL');
+										return
+									}
+									
+									shortenURL(sdk.field.getValue())
+								}}
 								isLoading={isLoadingSave}
 								aria-label="Shorten URL"
 								icon={ <Icon as={AiOutlineScissor} variant="secondary" />}

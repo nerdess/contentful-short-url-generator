@@ -1,13 +1,14 @@
 import React, { useCallback, useState, useEffect } from 'react';
-import { AppExtensionSDK } from '@contentful/app-sdk';
+import { ConfigAppSDK } from '@contentful/app-sdk';
 import { Heading, Form, Paragraph, Flex } from '@contentful/f36-components';
+import { css } from 'emotion';
 import { /* useCMA, */ useSDK } from '@contentful/react-apps-toolkit';
 
 export interface AppInstallationParameters {}
 
 const ConfigScreen = () => {
   const [parameters, setParameters] = useState<AppInstallationParameters>({});
-  const sdk = useSDK<AppExtensionSDK>();
+  const sdk = useSDK<ConfigAppSDK>();
   /*
      To use the cma, inject it as follows.
      If it is not needed, you can remove the next line.
@@ -56,9 +57,9 @@ const ConfigScreen = () => {
   }, [sdk]);
 
   return (
-    <Flex flexDirection="column" style={{ margin: '80px', maxWidth: '800px' }}>
+    <Flex flexDirection="column" className={css({ margin: '80px', maxWidth: '800px' })}>
       <Form>
-        <Heading>Blog Post Metrics Config</Heading>
+        <Heading>App Config</Heading>
         <Paragraph>Welcome to your contentful app. This is your config page.</Paragraph>
       </Form>
     </Flex>

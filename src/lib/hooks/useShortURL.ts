@@ -86,7 +86,7 @@ const UseShortURL = ({
 				.catch((error) => {
 					setIsLoadingInitial(false);
 					setIsErrorInitial(true);
-					console.error('API request error:', error);
+					//console.error('API request error:', error);
 				});
 		} else {
             setIsLoadingInitial(false);
@@ -116,22 +116,22 @@ const UseShortURL = ({
 							setShortUrl(short_url);
 							setLongUrl(long_url);
 							setIsLoadingSave(false);
-							//Notification.success('Short URL was created 🥳')
+							sdk.notifier.success('New short URL was created 🥳');
 
 						});
 					} else {
 						setIsErrorSave(true);
 						setIsLoadingSave(false);
-						throw new Error('API request failed');
+						//throw new Error('API request failed');
 					}
 				})
 				.catch((error) => {
 					setIsErrorSave(true);
 					setIsLoadingSave(false);
-					console.error('API request error:', error);
+					//console.error('API request error:', error);
 				});
 		},
-		[apiToken, apiUrl, sdk.field]
+		[apiToken, apiUrl, sdk.field, sdk.notifier]
 	);
 
 	const deleteShortURL = useCallback(() => {
@@ -139,6 +139,7 @@ const UseShortURL = ({
         setShortUrl(undefined);
 		setIsErrorInitial(false);
         sdk.field.setValue(longUrl);
+		sdk.notifier.success('Short URL was removed 🥳');
 
 
         /*fetch(`${apiUrl}?long_url=${url}`, {

@@ -20,16 +20,14 @@ const ComponentLocationSettings = {
 };
 
 const App = () => {
-
   const sdk = useSDK();
 
-  const Component = useMemo<() => JSX.Element>(() => {
+  const Component = useMemo(() => {
     for (const [location, component] of Object.entries(ComponentLocationSettings)) {
       if (sdk.location.is(location)) {
         return component;
       }
     }
-    return () => <></>; // Return a default empty component or handle this case as needed
   }, [sdk.location]);
 
   return Component ? <Component /> : null;
