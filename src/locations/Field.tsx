@@ -10,7 +10,8 @@ import {
 	IconButton,
 	Icon,
 	Tooltip,
-	Spinner
+	Spinner,
+	Subheading
 } from '@contentful/f36-components';
 import { useSDK } from '@contentful/react-apps-toolkit';
 import { SingleLineEditor } from '@contentful/field-editor-single-line';
@@ -70,10 +71,12 @@ const Field = () => {
 		return <Spinner variant="default" />
 	}
 
+	console.log('longUrl', longUrl);
+
 	return (
 		<Stack 
 			flexDirection="column" 
-			spacing="spacingXs"
+			spacing="spacingS"
 			alignItems="stretch"
 		>
 			{isErrorInitial && 
@@ -137,22 +140,25 @@ const Field = () => {
 				</Box>
 			</Flex>
 		
-			{(shortUrl && longUrl) && <Box>
-				<Stack>
+	
+			{(!!shortUrl && !!longUrl) && <Box>
+				<Stack flexDirection="column" spacing="spacing2Xs" alignItems="start">
+					
 					<Badge variant="secondary">
-						<span style={{textTransform:'none'}}>
-							Short URL resolves to:&nbsp;
+						<span style={{textTransform: 'none'}}>
+							Short URL resolves to
 						</span>
-						<TextLink
-							href="http://www.foo.de" 
-							target="_blank" 
-							rel="noopener noreferrer"
-						>
-							<Text fontSize="fontSizeS" as="u">
-								{longUrl}
-							</Text>
-						</TextLink>
 					</Badge>
+					<TextLink
+						href={longUrl}
+						target="_blank" 
+						rel="noopener noreferrer"
+					>
+						<Text fontSize="fontSizeS" as="u">
+							{longUrl}
+						</Text>
+					</TextLink>
+					
 					
 				</Stack>
 			</Box>}
