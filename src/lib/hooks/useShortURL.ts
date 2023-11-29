@@ -97,6 +97,9 @@ const UseShortURL = ({
 	const shortenURL = useCallback(
 		(url: string) => {
 
+			// If the URL is already a short URL, don't do anything (legacy support)
+			if (isShortURL(url)) return;
+
 			setIsLoadingSave(true);
 
 			fetch(`${apiUrl}?long_url=${url}`, {
@@ -142,40 +145,8 @@ const UseShortURL = ({
 		sdk.notifier.success('Short URL was removed 🥳');
 
 
-        /*fetch(`${apiUrl}?long_url=${url}`, {
-            method: 'DELETE',
-            headers: {
-            'Authorization': apiToken,
-            'Content-Type': 'application/json'
-            }
-        })
-        .then((response) => {
-            if (response.status === 201) {
-                response.json().then((response: ShortenURLResponse) => {
-                    
-                    const {
-                        short_url,
-                        long_url
-                    } = response;
 
-                    sdk.field.setValue(short_url);
-                    setShortUrl(short_url);
-                    setLongUrl(long_url);
-
-                })
-            } else {
-                setIsErrorSave(true);
-                throw new Error('API request failed');
-            }
-        })
-        .catch(error => {
-            setIsErrorSave(true);
-            console.error('API request error:', error);
-        });*/
-
-
-
-    }, [longUrl, sdk.field]);
+    }, [longUrl, sdk.field, sdk.notifier]);
 
 	const editShortURL = useCallback((url: string) => {}, []);
 

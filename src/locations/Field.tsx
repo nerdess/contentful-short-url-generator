@@ -8,10 +8,9 @@ import {
 	Text,
 	Note,
 	IconButton,
-	Icon,
+	//Icon,
 	Tooltip,
 	Spinner,
-	Subheading
 } from '@contentful/f36-components';
 import { useSDK } from '@contentful/react-apps-toolkit';
 import { SingleLineEditor } from '@contentful/field-editor-single-line';
@@ -19,8 +18,24 @@ import useAutoResizer from '../lib/hooks/useAutoResizer';
 import useShortURL from '../lib/hooks/useShortURL';
 import { FieldAppSDK } from '@contentful/app-sdk';
 import { DeleteIcon } from '@contentful/f36-icons';
-import { AiOutlineScissor } from "react-icons/ai";
+//import { AiOutlineScissor } from "react-icons/ai";
 import './field.scss';
+
+const initiateShortenUrl = ({
+	sdk,
+	shortenURL
+}:{
+	sdk: FieldAppSDK,
+	shortenURL: (url: string) => void
+}) => {
+
+	if (!sdk.field.getValue() || sdk.field.getSchemaErrors().length > 0) {
+		sdk.notifier.error('Please enter a valid URL');
+		return
+	}
+	
+	shortenURL(sdk.field.getValue())
+}
 
 const Field = () => {
 
@@ -39,7 +54,7 @@ const Field = () => {
 		deleteShortURL,
 		isLoadingInitial,
 		isErrorInitial,
-		isLoadingSave,
+		//isLoadingSave,
 		isErrorSave,
 		shortUrl,
 		longUrl
@@ -71,7 +86,7 @@ const Field = () => {
 		return <Spinner variant="default" />
 	}
 
-	console.log('longUrl', longUrl);
+	//console.log('longUrl', longUrl);
 
 	return (
 		<Stack 
@@ -102,29 +117,26 @@ const Field = () => {
 						field={sdk.field}
 						locales={sdk.locales}
 						isDisabled={!isErrorInitial && !!shortUrl}
+						onBlur={() => {
+							initiateShortenUrl({sdk, shortenURL});
+						}}
 					/>
 				</Flex>
 				<Box>
-					{(!shortUrl) && 
+					{/*(!shortUrl) && 
 						<Tooltip placement="left" content="Shorten URL">
 							<IconButton 
 								style={{height: 40, width: 40}}
 								variant="secondary"
 								onClick={() => {
-
-									if (!sdk.field.getValue() || sdk.field.getSchemaErrors().length > 0) {
-										sdk.notifier.error('Please enter a valid URL');
-										return
-									}
-									
-									shortenURL(sdk.field.getValue())
+									initiateShortenUrl({sdk, shortenURL});
 								}}
 								isLoading={isLoadingSave}
 								aria-label="Shorten URL"
 								icon={ <Icon as={AiOutlineScissor} variant="secondary" />}
 							/>
 						</Tooltip>
-					}
+					*/}
 					{!!shortUrl && 
 						<Tooltip placement="left" content="Remove short URL">
 							<IconButton
@@ -142,24 +154,25 @@ const Field = () => {
 		
 	
 			{(!!shortUrl && !!longUrl) && <Box>
-				<Stack flexDirection="column" spacing="spacing2Xs" alignItems="start">
-					
-					<Badge variant="secondary">
-						<span style={{textTransform: 'none'}}>
-							Short URL resolves to
-						</span>
-					</Badge>
-					<TextLink
-						href={longUrl}
-						target="_blank" 
-						rel="noopener noreferrer"
-					>
-						<Text fontSize="fontSizeS" as="u">
-							{longUrl}
-						</Text>
-					</TextLink>
-					
-					
+				<Stack flexDirection="row" spacing="spacing2Xs" alignItems="start">
+					<Box>
+						<Badge variant="secondary">
+							<span style={{textTransform: 'none'}}>
+								Short URL resolves to
+							</span>
+						</Badge>
+					</Box>
+					<Box style={{wordBreak: 'break-word'}}>
+						<TextLink
+							href={longUrl}
+							target="_blank" 
+							rel="noopener noreferrer"
+						>
+							<Text fontSize="fontSizeS" as="u" style={{display: 'block', lineHeight: 1.1}}>
+								{longUrl}
+							</Text>
+						</TextLink>
+					</Box>
 				</Stack>
 			</Box>}
 		</Stack>
