@@ -64,7 +64,7 @@ const UseShortURL = ({
 
 			setShortUrl(initialUrl);
 
-			fetch(`${apiUrl}/${hash}`, {
+			fetch(`${apiUrl}/${encodeURIComponent(hash)}`, {
 				method: 'GET',
 				headers: {
 					Authorization: apiToken,
@@ -102,7 +102,7 @@ const UseShortURL = ({
 
 			setIsLoadingSave(true);
 
-			fetch(`${apiUrl}?long_url=${url}`, {
+			fetch(`${apiUrl}?long_url=${encodeURIComponent(url)}`, {
 				method: 'POST',
 				headers: {
 					Authorization: apiToken,
