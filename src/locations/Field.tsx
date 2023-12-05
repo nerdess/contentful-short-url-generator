@@ -157,18 +157,18 @@ const Field = () => {
 				<Stack flexDirection="row" spacing="spacing2Xs" alignItems="start">
 					<Box>
 						<Badge variant="secondary">
-							<span style={{textTransform: 'none'}}>
+							<span style={{textTransform: 'none', whiteSpace: 'nowrap'}}>
 								Short URL resolves to
 							</span>
 						</Badge>
 					</Box>
-					<Box style={{wordBreak: 'break-word'}}>
+					<Box style={{wordBreak: 'break-word', flex: 1}}>
 						<TextLink
 							href={longUrl}
 							target="_blank" 
 							rel="noopener noreferrer"
 						>
-							<Text fontSize="fontSizeS" as="u" style={{display: 'block', lineHeight: 1.1}}>
+							<Text fontSize="fontSizeS" as="u" style={{display: 'inline-block', lineHeight: 1.4}}>
 								{longUrl}
 							</Text>
 						</TextLink>
