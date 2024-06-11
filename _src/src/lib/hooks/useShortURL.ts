@@ -122,8 +122,6 @@ const UseShortURL = ({
 							sdk.notifier.success('New short URL was created 🥳');
 
 						});
-						setIsErrorSave(false);
-						setIsLoadingSave(false);
 					} else {
 						setIsErrorSave(true);
 						setIsLoadingSave(false);

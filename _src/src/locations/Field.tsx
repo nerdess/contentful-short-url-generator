@@ -49,7 +49,6 @@ const Field = () => {
 		usApiToken
 	} = sdk.parameters.instance;
 
-
 	const {
 		shortenURL,
 		deleteShortURL,
@@ -73,7 +72,7 @@ const Field = () => {
 				alignItems="stretch"
 			>
 				<SingleLineEditor
-					field={sdk.field as any}
+					field={sdk.field}
 					locales={sdk.locales}
 				/>
 				<Note variant="negative">
@@ -88,7 +87,6 @@ const Field = () => {
 	}
 
 	//console.log('longUrl', longUrl);
-
 
 	return (
 		<Stack 
@@ -116,10 +114,11 @@ const Field = () => {
 					flexGrow={1}
 				>
 					<SingleLineEditor
-						field={sdk.field as any}
+						field={sdk.field}
 						locales={sdk.locales}
 						isDisabled={!isErrorInitial && !!shortUrl}
 						onBlur={() => {
+							console.log('xxxx');
 							initiateShortenUrl({sdk, shortenURL});
 						}}
 					/>
