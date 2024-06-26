@@ -28,7 +28,7 @@ interface UseShortURLResponse {
 }
 
 const isShortURL = (url: string): boolean => {
-    return url.includes('tsp.pm');
+    return url?.includes('tsp.pm');
 }
 
 const getHash = (url: string): string => {
