@@ -1,19 +1,16 @@
 This project was bootstrapped with [Create Contentful App](https://github.com/contentful/create-contentful-app).
 
-## How to use
+## What it does
 
-Execute create-contentful-app with npm, npx or yarn to bootstrap the example:
+This Contentful App uses URL shortener to automatically shorten URLs that are added in a Contentful Field
 
-```bash
-# npx
-npx create-contentful-app --typescript
+### Needs URL and token to be defined
 
-# npm
-npm init contentful-app -- --typescript
+<img width="805" alt="URL and token" src="https://github.com/user-attachments/assets/5d7eaa81-9d81-4618-87a2-4469201b6d77" />
 
-# Yarn
-yarn create contentful-app --typescript
-```
+### Looks like this when tied to a Contentful Entry
+
+<img width="931" alt="UI" src="https://github.com/user-attachments/assets/4b1d2857-2483-4485-a8f9-ef15e4b28247" />
 
 ## Available Scripts
 
